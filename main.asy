@@ -17,7 +17,7 @@ import graph3;
 
 // Figure settings
 size(7cm, 0);
-currentprojection = orthographic(3, 5, 4);
+currentprojection = orthographic(3, 4, 5);
 
 ///////////////////////////////////
 /////////// Mathematics ///////////
@@ -103,8 +103,8 @@ triple principalCycloid(real t)
 ///////////////////////////////////
 // Axes
 // draw(O -- 5X ^^ O -- 5Y ^^ O -- 5Z);  // One liner
-draw(O -- 9X, L=Label("$x$", position=EndPoint));
-draw(O -- 9Y, L=Label("$y$", position=EndPoint));
+draw(O -- 6X, L=Label("$x$", position=EndPoint));
+draw(O -- 6Y, L=Label("$y$", position=EndPoint));
 draw(O -- 9Z, L=Label("$z$", position=EndPoint));
 
 // t range
@@ -113,7 +113,7 @@ real tMax = 2pi * sqrt(10);
 
 // Draw curves
 path3 baseCurve = graph(base, tMin, tMax, operator ..);
-draw(baseCurve);
+draw(baseCurve, gray+linewidth(.4pt));
 
 // path3 centerCurve = graph(
 //     new triple (real t) { return uCenter(t, 0); },
@@ -133,15 +133,20 @@ for (int i = 0; i < steps; ++i) {
     // Current point on the base curve
     triple curr = base(t);
     dot(curr);
-    draw(pos(curr, tangent(t)), red, arrow=Arrow3());
-    draw(pos(curr, normal(t)), green, arrow=Arrow3());
-    draw(pos(curr, binormal(t)), blue, arrow=Arrow3());
-    draw(uCircle(t, 0), purple + linewidth(.2pt));
+    draw(pos(curr, tangent(t)), red + linewidth(.4pt), arrow=Arrow3());
+    draw(pos(curr, normal(t)), green + linewidth(.4pt), arrow=Arrow3());
+    draw(pos(curr, binormal(t)), blue + linewidth(.4pt), arrow=Arrow3());
+    draw(uCircle(t, 0), red + linewidth(.4pt));
 }
 
 // Draw the cycloidal surface
-nmesh = 30;
+nmesh = 90;
 var cycloidalSurface = surface(paramCycloid, (tMin, 0), (tMax, 2pi), Spline);
-draw(cycloidalSurface, red + opacity(.3));
+var surfacepen = material(
+    mediumred+opacity(.5),
+    emissivepen=gray(.5),
+    shininess=.62
+);
+draw(cycloidalSurface, surfacepen=surfacepen);
 
 // shipout(scale(4.0) * currentpicture.fit());
