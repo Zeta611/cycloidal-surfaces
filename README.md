@@ -6,8 +6,9 @@ repository.
 asy demo
 ```
 will create the following figure:
-![demo](demo.png)
+
+<img src="demo.png" alt="demo" height="500"/>
 
 ## Showcases
 ### Even an animation!
-![animation](anim.gif)
+<img src="anim.gif" alt="animation" height="500"/>
